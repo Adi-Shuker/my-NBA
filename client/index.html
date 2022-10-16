@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="client\style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="center">
+        <h1 class="myNBA-title red-text">MyNBA<img class="img-title scale" src="client\\images\basketball_player.png">
+        </h1>
+    </div>
+    <div>
+        <div class="row valign-wrapper">
+            <div class="col s4">
+                <input type="text" placeholder="team name" id="team-name">
+            </div>
+            <div class="col s4">
+                <input type="text" placeholder="year" id="year">
+            </div>
+            <div class="col s4">
+                <div class="col s5">
+                    <button class="btn btn-get-team waves-effect waves-light red" type="submit" name="action">get team
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+                <div class="col s6">
+                    <a class="waves-effect waves-light btn btn-dream-team red">my dream team</a>
+                </div>
+            </div>
+        </div>
+        <label>
+            <input type="checkbox" class="filled-in has-birth-date" />
+            <span class="has-birth-date-checkbox">has birth date</span>
+        </label>
+    </div>
+    <script id="players-template" type="text/x-handlebars-template">
+        <ul>
+            <div class="row">
+            {{#each players}}
+            <div class="col sample s4 m4">
+                <div class="card" data-id={{this.id}}>
+                    <div class="card-image">
+                        {{#if this.in_dream_team}}
+                        <a class="waves-effect waves-light dream-team-icon"><i class="material-icons medium">stars</i></a>
+                        {{/if}} 
+
+                        <img src="{{this.picture}}" class="player-img" onerror="if (this.src != 'error.jpg') this.src = 'client\\images\\basketball-player-avatar-icon.jpg';" alt="add alternative text here">
+                        <span class="card-title red-text player-name">{{this.name}}</span>
+                        {{#if this.in_dream_team}}
+                        <a class="btn-floating halfway-fab waves-effect waves-light red remove-from-dream-team"><i
+                                class="material-icons">remove</i></a>
+                        {{else}}
+                        <a class="btn-floating halfway-fab waves-effect waves-light red add-to-dream-team"><i
+                                class="material-icons">add</i></a>
+                        {{/if}}
+                    </div>
+                    <div class="card-content center sticky-action">
+                        <h5>{{this.jersey_number}}</h5>
+                        <h5>{{this.position}}</h5>
+                        <a class="waves-effect waves-light btn red stats activator" data-name="{{this.name}}">show stats</a>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">
+                            <i class="material-icons">lightbulb_outline</i>
+                            statistics<i class="material-icons right">close</i></span>
+                        {{#each this.stats}}
+                        <p class="grey-text">{{this}}</p>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+                {{/each}}
+            </div>
+        </ul>
+    </script>
+    <div class="players"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="client\players.js"></script>
+    <script src="client\renderer.js"></script>
+    <script src="client\myNbaController.js"></script>
+</body>
+
+</html>

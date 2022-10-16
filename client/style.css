@@ -1,0 +1,16 @@
+.card-image { position: relative; }
+.card-image .player-img { display: block; }
+.card-image .dream-team-icon { position: absolute; left:0; }
+.has-birth-date-checkbox {margin-left: 11.25px;}
+.myNBA-title{
+    display:inline-block;
+}
+.img-title{
+    margin-left: 15px;
+    display:inline-block;
+}
+.scale
+{
+    height: 1em; 
+    width: 1em;
+}
