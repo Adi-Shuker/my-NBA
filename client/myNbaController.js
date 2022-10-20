@@ -15,13 +15,6 @@ $(".btn-dream-team").on("click", () => {
     });
 });
 
-$(".add-to-dream-team").on("click", () => {
-    console.log($(this).closest("div", ".card"));
-    players.addToDreamTeam(playerId).then((dreamTeam) => {
-        renderer.render(dreamTeam);
-    });
-});
-
 $("body").on("click", ".add-to-dream-team", function () {
     playerId = $(this).closest("div .card").data().id;
     players.addToDreamTeam(playerId).then((dreamTeam) => {

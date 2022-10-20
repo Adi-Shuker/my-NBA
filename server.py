@@ -4,17 +4,11 @@ from fastapi.responses import FileResponse
 import requests
 import uvicorn
 import json
+from constants import players_base_url, team_to_ids
 
 app = FastAPI()
 
 app.mount("/client", StaticFiles(directory="client"), name="client")
-
-team_to_ids = {
-    "lakers": "1610612747",
-    "warriors": "1610612744",
-    "heat": "1610612748",
-    "suns": "1610612756"
-}
 
 players = []
 dream_team = []
@@ -34,7 +28,7 @@ def _is_in_dream_team(id):
 
 def _get_stats(first_name, last_name):
     stats = requests.get(
-        f"https://nba-players.herokuapp.com/players-stats/{last_name.lower()}/{first_name.lower()}")
+        f"{players_base_url}/players-stats/{last_name.lower()}/{first_name.lower()}")
     first_five_stats = []
     if (stats.text != 'Sorry, that player was not found. Please check the spelling.'):
         res = json.loads(stats.text)
@@ -60,7 +54,7 @@ def _get_team_players(team, players):
             "name": f"{p['firstName']} {p['lastName']}",
             "jersey_number": p["jersey"],
             "position":p["pos"],
-            "picture":f"https://nba-players.herokuapp.com/players/{p['lastName'].lower()}/{p['firstName'].lower()}",
+            "picture":f"{players_base_url}/players/{p['lastName'].lower()}/{p['firstName'].lower()}",
             "stats":_get_stats(p['firstName'], p['lastName']),
             "has_date_of_birth":p["dateOfBirthUTC"] != "",
             "date_of_birth":p["dateOfBirthUTC"],
